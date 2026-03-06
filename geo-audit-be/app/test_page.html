@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GEO Audit 테스트 페이지</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2rem; max-width: 840px; }
+      .card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; }
+      input, button { padding: 0.6rem; font-size: 1rem; }
+      input { width: 70%; }
+      button { cursor: pointer; }
+      pre { background: #111; color: #0f0; padding: 1rem; overflow-x: auto; border-radius: 6px; }
+      .hint { color: #555; font-size: 0.9rem; }
+    </style>
+  </head>
+  <body>
+    <h1>GEO Audit 테스트 페이지</h1>
+    <p class="hint">아래 URL을 입력하고 GEO 점수를 확인하세요.</p>
+    <div class="card">
+      <form id="audit-form">
+        <input id="url" type="url" placeholder="https://example.com" required />
+        <button type="submit">감사 실행</button>
+      </form>
+      <p id="status" class="hint"></p>
+      <pre id="result">{}</pre>
+    </div>
+
+    <script>
+      const form = document.getElementById('audit-form');
+      const result = document.getElementById('result');
+      const status = document.getElementById('status');
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const url = document.getElementById('url').value.trim();
+        status.textContent = '감사 중...';
+        result.textContent = '{}';
+
+        try {
+          const response = await fetch('/geo-audit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url })
+          });
+
+          const data = await response.json();
+          if (!response.ok) {
+            status.textContent = `오류: ${response.status}`;
+          } else {
+            status.textContent = '완료';
+          }
+          result.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+          status.textContent = '요청 실패';
+          result.textContent = JSON.stringify({ error: String(error) }, null, 2);
+        }
+      });
+    </script>
+  </body>
+</html>
