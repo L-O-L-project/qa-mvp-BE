@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GEO Audit Test</title>
+    <style>
+      :root {
+        --bg: #f4f7fb;
+        --ink: #11243a;
+        --muted: #5d6f86;
+        --line: #d6deea;
+        --panel: #ffffff;
+        --panel-2: #f8fbff;
+        --accent: #0f5bd6;
+        --accent-2: #03a0b7;
+        --ok: #1f9d57;
+        --warn: #cc7a00;
+        --bad: #c42f2f;
+        --code-bg: #0e1726;
+        --code-fg: #e7f0ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(1000px 500px at 5% -5%, #d7e8ff 0%, transparent 55%),
+          radial-gradient(1200px 700px at 95% 0%, #d8fbff 0%, transparent 60%),
+          var(--bg);
+      }
+
+      .wrap {
+        width: min(980px, calc(100vw - 2rem));
+        margin: 2rem auto 3rem auto;
+      }
+
+      .hero {
+        padding: 1.4rem 1.3rem;
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        background: linear-gradient(135deg, #ffffff 0%, #f3f8ff 55%, #ecfdff 100%);
+        box-shadow: 0 16px 28px -24px rgba(10, 40, 90, 0.5);
+      }
+
+      h1 {
+        margin: 0 0 0.4rem 0;
+        letter-spacing: 0.02em;
+        font-size: clamp(1.45rem, 2vw, 1.9rem);
+      }
+
+      .sub {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .panel {
+        margin-top: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        background: var(--panel);
+        padding: 1rem;
+      }
+
+      form {
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      .row {
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: 1fr auto;
+      }
+
+      input[type="url"] {
+        width: 100%;
+        padding: 0.82rem 0.9rem;
+        border-radius: 0.7rem;
+        border: 1px solid #b8c7db;
+        background: #fff;
+        color: var(--ink);
+        font-size: 1rem;
+      }
+
+      button {
+        border: none;
+        border-radius: 0.7rem;
+        padding: 0.82rem 1rem;
+        min-width: 140px;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+        cursor: pointer;
+        transition: transform 120ms ease, box-shadow 120ms ease;
+      }
+
+      button:hover:enabled {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 20px -16px rgba(15, 91, 214, 0.9);
+      }
+
+      button:disabled {
+        opacity: 0.65;
+        cursor: wait;
+      }
+
+      .status {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .summary {
+        margin-top: 1rem;
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .metric {
+        border: 1px solid var(--line);
+        border-radius: 0.8rem;
+        background: var(--panel-2);
+        padding: 0.8rem;
+      }
+
+      .metric .label {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .metric .value {
+        margin-top: 0.18rem;
+        font-size: 1.24rem;
+        font-weight: 700;
+      }
+
+      .checks {
+        margin: 1rem 0 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 0.42rem;
+      }
+
+      .checks li {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.5rem 0.62rem;
+        border: 1px solid var(--line);
+        border-radius: 0.6rem;
+        background: #fff;
+      }
+
+      .tag {
+        font-size: 0.78rem;
+        padding: 0.12rem 0.45rem;
+        border-radius: 999px;
+        font-weight: 700;
+      }
+
+      .tag.ok {
+        color: var(--ok);
+        background: #e8f8ef;
+      }
+
+      .tag.no {
+        color: var(--bad);
+        background: #ffe9e9;
+      }
+
+      .json {
+        margin-top: 1rem;
+        border-radius: 0.8rem;
+        background: var(--code-bg);
+        color: var(--code-fg);
+        border: 1px solid #23314a;
+        padding: 0.8rem;
+        max-height: 420px;
+        overflow: auto;
+        font-family: "IBM Plex Mono", Consolas, monospace;
+        font-size: 0.84rem;
+      }
+
+      .score-good {
+        color: var(--ok);
+      }
+
+      .score-mid {
+        color: var(--warn);
+      }
+
+      .score-bad {
+        color: var(--bad);
+      }
+
+      @media (max-width: 760px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+
+        button {
+          width: 100%;
+        }
+
+        .summary {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero">
+        <h1>GEO Audit Test Console</h1>
+        <p class="sub">Enter a URL and run a GEO test using this backend.</p>
+      </section>
+
+      <section class="panel">
+        <form id="geo-form">
+          <div class="row">
+            <input id="url" type="url" placeholder="https://example.com" required />
+            <button id="submit" type="submit">Run GEO Test</button>
+          </div>
+          <p id="status" class="status">Ready</p>
+        </form>
+
+        <div class="summary">
+          <article class="metric">
+            <div class="label">GEO score</div>
+            <div id="score" class="value">-</div>
+          </article>
+          <article class="metric">
+            <div class="label">Structured data count</div>
+            <div id="schema-count" class="value">-</div>
+          </article>
+          <article class="metric">
+            <div class="label">Recommendation count</div>
+            <div id="rec-count" class="value">-</div>
+          </article>
+        </div>
+
+        <ul id="checks" class="checks"></ul>
+        <pre id="json" class="json">{}</pre>
+      </section>
+    </main>
+
+    <script>
+      const form = document.getElementById("geo-form");
+      const urlInput = document.getElementById("url");
+      const submitButton = document.getElementById("submit");
+      const statusNode = document.getElementById("status");
+      const scoreNode = document.getElementById("score");
+      const schemaCountNode = document.getElementById("schema-count");
+      const recCountNode = document.getElementById("rec-count");
+      const checksNode = document.getElementById("checks");
+      const jsonNode = document.getElementById("json");
+
+      function scoreClass(score) {
+        if (score >= 75) return "score-good";
+        if (score >= 45) return "score-mid";
+        return "score-bad";
+      }
+
+      function renderChecks(checks) {
+        checksNode.innerHTML = "";
+        const entries = Object.entries(checks || {});
+        if (!entries.length) return;
+        entries.forEach(([key, value]) => {
+          const item = document.createElement("li");
+          const left = document.createElement("span");
+          left.textContent = key;
+          const right = document.createElement("span");
+          right.className = "tag " + (value ? "ok" : "no");
+          right.textContent = value ? "PASS" : "MISS";
+          item.appendChild(left);
+          item.appendChild(right);
+          checksNode.appendChild(item);
+        });
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const url = urlInput.value.trim();
+        if (!url) return;
+
+        submitButton.disabled = true;
+        statusNode.textContent = "Running GEO test...";
+        scoreNode.textContent = "-";
+        scoreNode.className = "value";
+        schemaCountNode.textContent = "-";
+        recCountNode.textContent = "-";
+        checksNode.innerHTML = "";
+        jsonNode.textContent = "{}";
+
+        try {
+          const response = await fetch("/api/geo-audit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url })
+          });
+
+          const data = await response.json();
+          if (!response.ok) {
+            const errMessage = data?.detail?.userMessage || data?.detail || "Request failed";
+            statusNode.textContent = `Error (${response.status}): ${errMessage}`;
+            jsonNode.textContent = JSON.stringify(data, null, 2);
+            return;
+          }
+
+          const score = Number(data.geo_score || 0);
+          scoreNode.textContent = String(score);
+          scoreNode.className = "value " + scoreClass(score);
+          schemaCountNode.textContent = String((data.structured_data || []).length);
+          recCountNode.textContent = String((data.recommendations || []).length);
+          renderChecks(data.checks || {});
+          jsonNode.textContent = JSON.stringify(data, null, 2);
+          statusNode.textContent = "Completed";
+        } catch (error) {
+          statusNode.textContent = "Request failed";
+          jsonNode.textContent = JSON.stringify({ error: String(error) }, null, 2);
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

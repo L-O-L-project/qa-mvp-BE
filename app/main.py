@@ -15,6 +15,7 @@ from urllib.parse import urlencode, urlparse
 import httpx
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.services.analyze import analyze_site
@@ -31,6 +32,7 @@ from app.services.state_transition import run_transition_check
 from app.services.qa_templates import build_template_steps, list_templates
 from app.services.user_signup import attempt_user_signup
 from app.services.google_sheets import audit_log, pull_and_validate
+from app.services.geo_audit import run_geo_audit
 
 APP_NAME = "qa-mvp-fastapi"
 NODE_API_BASE = os.getenv("QA_NODE_API_BASE", "http://127.0.0.1:4173").rstrip("/")
@@ -38,6 +40,7 @@ WEB_ORIGIN = os.getenv("QA_WEB_ORIGIN", "*").strip() or "*"
 REQUEST_TIMEOUT_SEC = float(os.getenv("QA_API_TIMEOUT_SEC", "180"))
 HEALTH_UPSTREAM_TIMEOUT_SEC = float(os.getenv("QA_HEALTH_UPSTREAM_TIMEOUT_SEC", "2.5"))
 AUTH_STORE_PATH = Path("out/auth-profiles.json")
+GEO_TEST_PAGE_PATH = Path(__file__).with_name("static").joinpath("geo-test.html")
 
 logger = logging.getLogger(APP_NAME)
 
@@ -306,6 +309,45 @@ def root() -> Dict[str, Any]:
         "service": APP_NAME,
         "nodeApiBase": NODE_API_BASE,
     }
+
+
+@app.get("/geo-test")
+async def geo_test_page() -> FileResponse:
+    if not GEO_TEST_PAGE_PATH.exists():
+        raise HTTPException(
+            status_code=500,
+            detail=_error_detail("server", "GEO_TEST_PAGE_MISSING", "geo-test page is missing", str(GEO_TEST_PAGE_PATH)),
+        )
+    return FileResponse(GEO_TEST_PAGE_PATH)
+
+
+@app.post("/api/geo-audit")
+async def geo_audit(req: Request) -> Dict[str, Any]:
+    payload = await _json_payload(req)
+    url = str(payload.get("url") or "").strip()
+    if not url:
+        raise HTTPException(
+            status_code=400,
+            detail=_error_detail("config", "URL_REQUIRED", "url is required"),
+        )
+
+    try:
+        return await run_geo_audit(url)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=400,
+            detail=_error_detail("config", "INVALID_URL", "invalid url", str(e)),
+        ) from e
+    except RuntimeError as e:
+        raise HTTPException(
+            status_code=502,
+            detail=_error_detail("dependency", "GEO_CRAWL_FAILED", "failed to crawl target url", str(e)),
+        ) from e
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=_error_detail("server", "GEO_AUDIT_FAILED", "geo audit failed", str(e)),
+        ) from e
 
 
 @app.get("/health")

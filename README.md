@@ -12,6 +12,8 @@ uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
 ## Main endpoints
+- `/geo-test` (web test page)
+- `/api/geo-audit`
 - `/api/analyze`
 - `/api/checklist/auto`
 - `/api/checklist/execute`
