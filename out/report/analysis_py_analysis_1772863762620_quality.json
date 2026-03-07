@@ -1,0 +1,40 @@
+{
+  "analysisId": "py_analysis_1772863762620",
+  "metrics": {
+    "queued": 297,
+    "crawled": 20,
+    "uniquePathCount": 19,
+    "ctaCount": 1373,
+    "menuCount": 100,
+    "formCount": 15,
+    "formTypeCounts": {
+      "AUTH": 0,
+      "SEARCH": 1,
+      "CHECKOUT": 0,
+      "CONTACT": 9,
+      "UNKNOWN": 5
+    },
+    "coverageScore": 1,
+    "criticalPages": 1,
+    "avgPriorityScore": 58,
+    "authGatePages": 18,
+    "paritySignals": {
+      "docsDriftRisk": "MEDIUM",
+      "docsSignalCount": 3,
+      "formSignalCount": 15,
+      "strongFormSignal": true,
+      "singlePageFormTendency": false,
+      "authLikely": true
+    }
+  },
+  "confidence": 0.95,
+  "formPrecision": {
+    "precisionScore": 0.77,
+    "unknownRatio": 0.33,
+    "notes": "fastapi tuned analyzer"
+  },
+  "risks": [
+    "form classification uncertainty",
+    "auth-gate pages detected"
+  ]
+}

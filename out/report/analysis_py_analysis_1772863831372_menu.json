@@ -1,0 +1,705 @@
+{
+  "analysisId": "py_analysis_1772863831372",
+  "rows": [
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "OptiFlow",
+      "href": "/",
+      "count": 93
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "블로그",
+      "href": "/blog",
+      "count": 62
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "문의하기",
+      "href": "/contact",
+      "count": 59
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "로그인",
+      "href": "/login",
+      "count": 54
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "홈",
+      "href": "/",
+      "count": 51
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "AEO",
+      "href": "/aeo",
+      "count": 37
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "옵티플로우",
+      "href": "/about",
+      "count": 36
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "Opti-SEO",
+      "href": "/seo",
+      "count": 36
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "Opti-AEO",
+      "href": "/aeo",
+      "count": 36
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "Opti-GEO",
+      "href": "/geo",
+      "count": 36
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "Opti-XEO",
+      "href": "/xeo",
+      "count": 36
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "키워드 분석기",
+      "href": "/keyword-analysis",
+      "count": 36
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "llms-txt 생성기",
+      "href": "/llms-txt-generator",
+      "count": 36
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "키워드",
+      "href": "/keyword-analysis",
+      "count": 36
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "SEO",
+      "href": "/seo",
+      "count": 36
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "GEO",
+      "href": "/geo",
+      "count": 36
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "채팅상담",
+      "href": "/chat",
+      "count": 36
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "이용약관",
+      "href": "/terms_of_service",
+      "count": 21
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "개인정보처리방침",
+      "href": "/privacy-policy",
+      "count": 21
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "옵티플로우 소개",
+      "href": "/about",
+      "count": 20
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "옵티플로우",
+      "href": "/",
+      "count": 18
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "https://optiflow.kr/",
+      "href": "/",
+      "count": 18
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "AI 기반 검색에서 브랜드가 인용되는 조건",
+      "href": "/blog/ai-%EA%B8%B0%EB%B0%98-%EA%B2%80%EC%83%89%EC%97%90%EC%84%9C-%EB%B8%8C%EB%9E%9C%EB%93%9C%EA%B0%80-%EC%9D%B8%EC%9A%A9%EB%90%98%EB%8A%94-%EC%A1%B0%EA%B1%B4-193",
+      "count": 14
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "AI 검색으로 인한 트래픽 변화와 대응 전략",
+      "href": "/blog/ai-%EA%B2%80%EC%83%89%EC%9C%BC%EB%A1%9C-%EC%9D%B8%ED%95%9C-%ED%8A%B8%EB%9E%98%ED%94%BD-%EB%B3%80%ED%99%94%EC%99%80-%EB%8C%80%EC%9D%91-%EC%A0%84%EB%9E%B5-195",
+      "count": 13
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "AI 검색 시대 블로그 운영 실전 전략",
+      "href": "/blog/ai-%EA%B2%80%EC%83%89-%EC%8B%9C%EB%8C%80-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%9A%B4%EC%98%81-%EC%8B%A4%EC%A0%84-%EC%A0%84%EB%9E%B5-196",
+      "count": 12
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "2분 읽기",
+      "href": "/blog/ai-%EA%B2%80%EC%83%89-%EC%8B%9C%EB%8C%80-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%9A%B4%EC%98%81-%EC%8B%A4%EC%A0%84-%EC%A0%84%EB%9E%B5-196",
+      "count": 8
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "2분 읽기",
+      "href": "/blog/ai-%EA%B2%80%EC%83%89%EC%9C%BC%EB%A1%9C-%EC%9D%B8%ED%95%9C-%ED%8A%B8%EB%9E%98%ED%94%BD-%EB%B3%80%ED%99%94%EC%99%80-%EB%8C%80%EC%9D%91-%EC%A0%84%EB%9E%B5-195",
+      "count": 8
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "2분 읽기",
+      "href": "/blog/ai-%EA%B8%B0%EB%B0%98-%EA%B2%80%EC%83%89%EC%97%90%EC%84%9C-%EB%B8%8C%EB%9E%9C%EB%93%9C%EA%B0%80-%EC%9D%B8%EC%9A%A9%EB%90%98%EB%8A%94-%EC%A1%B0%EA%B1%B4-193",
+      "count": 8
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "OptiFlow",
+      "href": "/",
+      "count": 6
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/ai-%EA%B8%B0%EB%B0%98-%EA%B2%80%EC%83%89%EC%97%90%EC%84%9C-%EB%B8%8C%EB%9E%9C%EB%93%9C%EA%B0%80-%EC%9D%B8%EC%9A%A9%EB%90%98%EB%8A%94-%EC%A1%B0%EA%B1%B4-193",
+      "count": 6
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/aeo%EC%99%80-seo-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EA%B3%BC-google-ai-overviews-%EA%B7%B8%EB%A6%AC%EA%B3%A0-%EB%84%A4%EC%9D%B4%EB%B2%84-cue-%EB%85%B8%EC%B6%9C-%EB%B0%A9%EB%B2%95-191",
+      "count": 5
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "AEO와 SEO 차이점 과 Google AI Overviews 그리고 네이버 Cue 노출 방법",
+      "href": "/blog/aeo%EC%99%80-seo-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EA%B3%BC-google-ai-overviews-%EA%B7%B8%EB%A6%AC%EA%B3%A0-%EB%84%A4%EC%9D%B4%EB%B2%84-cue-%EB%85%B8%EC%B6%9C-%EB%B0%A9%EB%B2%95-191",
+      "count": 5
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/ai-%EA%B2%80%EC%83%89%EC%9C%BC%EB%A1%9C-%EC%9D%B8%ED%95%9C-%ED%8A%B8%EB%9E%98%ED%94%BD-%EB%B3%80%ED%99%94%EC%99%80-%EB%8C%80%EC%9D%91-%EC%A0%84%EB%9E%B5-195",
+      "count": 5
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/geo%EC%97%90%EC%84%9C-faq-%EC%8A%A4%ED%82%A4%EB%A7%88%EC%99%80-ai-%EA%B2%80%EC%83%89-%EC%9D%B8%EC%9A%A9%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B5%AC%EC%A1%B0%ED%99%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%99%9C%EC%9A%A9%EB%B2%95-190",
+      "count": 4
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "GEO에서 FAQ 스키마와 AI 검색 인용을 위한 구조화 데이터 활용법",
+      "href": "/blog/geo%EC%97%90%EC%84%9C-faq-%EC%8A%A4%ED%82%A4%EB%A7%88%EC%99%80-ai-%EA%B2%80%EC%83%89-%EC%9D%B8%EC%9A%A9%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B5%AC%EC%A1%B0%ED%99%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%99%9C%EC%9A%A9%EB%B2%95-190",
+      "count": 4
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/ai-%EA%B2%80%EC%83%89-%EC%8B%9C%EB%8C%80-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%9A%B4%EC%98%81-%EC%8B%A4%EC%A0%84-%EC%A0%84%EB%9E%B5-196",
+      "count": 4
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "용어 사전",
+      "href": "/glossary",
+      "count": 4
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "llms.txt 가이드",
+      "href": "/aeo/llms-txt",
+      "count": 4
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "SEO 최적화",
+      "href": "/blog",
+      "count": 4
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "Read in 2 minutes",
+      "href": "/blog/ai-%EA%B8%B0%EB%B0%98-%EA%B2%80%EC%83%89%EC%97%90%EC%84%9C-%EB%B8%8C%EB%9E%9C%EB%93%9C%EA%B0%80-%EC%9D%B8%EC%9A%A9%EB%90%98%EB%8A%94-%EC%A1%B0%EA%B1%B4-193",
+      "count": 4
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "사용자 경험",
+      "href": "/blog",
+      "count": 4
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "로그인",
+      "href": "/login",
+      "count": 3
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "블로그",
+      "href": "/blog",
+      "count": 3
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "문의하기",
+      "href": "/contact",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/nextjs-%EA%B8%B0%EB%B0%98-%EB%B8%94%EB%A1%9C%EA%B7%B8%EA%B0%80-%EC%83%9D%EC%84%B1%ED%98%95-ai-%EA%B2%80%EC%83%89%EC%97%90-%EC%9C%A0%EB%A6%AC%ED%95%9C-%EC%9D%B4%EC%9C%A0-180",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "Next.js 기반 블로그가 생성형 AI 검색에 유리한 이유",
+      "href": "/blog/nextjs-%EA%B8%B0%EB%B0%98-%EB%B8%94%EB%A1%9C%EA%B7%B8%EA%B0%80-%EC%83%9D%EC%84%B1%ED%98%95-ai-%EA%B2%80%EC%83%89%EC%97%90-%EC%9C%A0%EB%A6%AC%ED%95%9C-%EC%9D%B4%EC%9C%A0-180",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/%ED%8B%B0%EC%8A%A4%ED%86%A0%EB%A6%AC-vs-%EC%9B%8C%EB%93%9C%ED%94%84%EB%A0%88%EC%8A%A4-vs-nextjs-%EB%B8%94%EB%A1%9C%EA%B7%B8-seo-%EC%84%B1%EB%8A%A5-%EB%B9%84%EA%B5%90-173",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "티스토리 vs 워드프레스 vs Next.js 블로그, SEO 성능 비교",
+      "href": "/blog/%ED%8B%B0%EC%8A%A4%ED%86%A0%EB%A6%AC-vs-%EC%9B%8C%EB%93%9C%ED%94%84%EB%A0%88%EC%8A%A4-vs-nextjs-%EB%B8%94%EB%A1%9C%EA%B7%B8-seo-%EC%84%B1%EB%8A%A5-%EB%B9%84%EA%B5%90-173",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/2026%EB%85%84-%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%A0%9C%EC%9E%91-%ED%8A%B8%EB%A0%8C%EB%93%9C-%EA%B7%B8%EB%83%A5-%EB%A9%8B%EC%A7%84-%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80%EB%8A%94-%EC%8B%A4%ED%8C%A8-%ED%95%9C%EB%8B%A4-175",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "2026년 홈페이지 제작 트렌드: 그냥 멋진 홈페이지는 실패 한다",
+      "href": "/blog/2026%EB%85%84-%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%A0%9C%EC%9E%91-%ED%8A%B8%EB%A0%8C%EB%93%9C-%EA%B7%B8%EB%83%A5-%EB%A9%8B%EC%A7%84-%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80%EB%8A%94-%EC%8B%A4%ED%8C%A8-%ED%95%9C%EB%8B%A4-175",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/react-vs-nextjs-%EC%96%B4%EB%96%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-%EC%96%B4%EB%96%A4-%EC%84%A0%ED%83%9D%EC%9D%84-%ED%95%B4%EC%95%BC%ED%95%A0%EA%B9%8C%EC%9A%94-168",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "React vs Next.js, 어떤 프로젝트에 어떤 선택을 해야할까요?",
+      "href": "/blog/react-vs-nextjs-%EC%96%B4%EB%96%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-%EC%96%B4%EB%96%A4-%EC%84%A0%ED%83%9D%EC%9D%84-%ED%95%B4%EC%95%BC%ED%95%A0%EA%B9%8C%EC%9A%94-168",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/shadcnui-radix-ui-%ED%8A%B8%EB%9E%9C%EB%93%9C-153",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "Shadcn/ui, Radix UI 트랜드",
+      "href": "/blog/shadcnui-radix-ui-%ED%8A%B8%EB%9E%9C%EB%93%9C-153",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "AEO 검사",
+      "href": "/aeo",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "CSR",
+      "href": "/blog",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "Read in 2 minutes",
+      "href": "/blog/ai-%EA%B2%80%EC%83%89%EC%9C%BC%EB%A1%9C-%EC%9D%B8%ED%95%9C-%ED%8A%B8%EB%9E%98%ED%94%BD-%EB%B3%80%ED%99%94%EC%99%80-%EB%8C%80%EC%9D%91-%EC%A0%84%EB%9E%B5-195",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "Read in 2 minutes",
+      "href": "/blog/aeo%EC%99%80-seo-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EA%B3%BC-google-ai-overviews-%EA%B7%B8%EB%A6%AC%EA%B3%A0-%EB%84%A4%EC%9D%B4%EB%B2%84-cue-%EB%85%B8%EC%B6%9C-%EB%B0%A9%EB%B2%95-191",
+      "count": 3
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "API 보안",
+      "href": "/blog",
+      "count": 3
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "옵티플로우",
+      "href": "/about",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "Opti-SEO",
+      "href": "/seo",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "Opti-AEO",
+      "href": "/aeo",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "Opti-GEO",
+      "href": "/geo",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "Opti-XEO",
+      "href": "/xeo",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "키워드 분석기",
+      "href": "/keyword-analysis",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "llms-txt 생성기",
+      "href": "/llms-txt-generator",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "옵티플로우 소개",
+      "href": "/about",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "홈",
+      "href": "/",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "키워드",
+      "href": "/keyword-analysis",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "SEO",
+      "href": "/seo",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "AEO",
+      "href": "/aeo",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "GEO",
+      "href": "/geo",
+      "count": 2
+    },
+    {
+      "scope": "GLOBAL",
+      "zone": "header",
+      "name": "채팅상담",
+      "href": "/chat",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/nodejs-%EA%B8%B0%EB%B0%98-%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%95%B1-app-%EA%B0%9C%EB%B0%9C-143",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "Node.js 기반 홈페이지 / 앱 APP 개발",
+      "href": "/blog/nodejs-%EA%B8%B0%EB%B0%98-%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%95%B1-app-%EA%B0%9C%EB%B0%9C-143",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/%EA%B5%AC%EA%B8%80-%EC%83%81%EC%9C%84%EB%85%B8%EC%B6%9C%EC%9D%84-%EC%9C%84%ED%95%9C-seo-%EC%B5%9C%EC%A0%81%ED%99%94-%ED%9D%90%EB%A6%84%EB%B6%80%ED%84%B0-%EB%B0%94%EA%BE%B8%EA%B8%B0-186",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "구글 상위노출을 위한 SEO 최적화, 흐름부터 바꾸기",
+      "href": "/blog/%EA%B5%AC%EA%B8%80-%EC%83%81%EC%9C%84%EB%85%B8%EC%B6%9C%EC%9D%84-%EC%9C%84%ED%95%9C-seo-%EC%B5%9C%EC%A0%81%ED%99%94-%ED%9D%90%EB%A6%84%EB%B6%80%ED%84%B0-%EB%B0%94%EA%BE%B8%EA%B8%B0-186",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/2026%EB%85%84-aeo-ai-%EA%B2%80%EC%83%89-%EC%B5%9C%EC%A0%81%ED%99%94%EA%B0%80-%EC%A4%91%EC%9A%94%ED%95%9C-%EC%9D%B4%EC%9C%A0-185",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "2026년 AEO AI 검색 최적화가 중요한 이유",
+      "href": "/blog/2026%EB%85%84-aeo-ai-%EA%B2%80%EC%83%89-%EC%B5%9C%EC%A0%81%ED%99%94%EA%B0%80-%EC%A4%91%EC%9A%94%ED%95%9C-%EC%9D%B4%EC%9C%A0-185",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/seo-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B5%AC%EA%B8%80-%EB%84%A4%EC%9D%B4%EB%B2%84-%EA%B2%80%EC%83%89%EC%97%94%EC%A7%84%EC%B5%9C%EC%A0%81%ED%99%94-%EC%83%81%EC%9C%84%EB%85%B8%EC%B6%9C-%EB%B0%A9%EC%95%88-181",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "SEO 최적화 | 구글 네이버 검색엔진최적화 상위노출 방안",
+      "href": "/blog/seo-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B5%AC%EA%B8%80-%EB%84%A4%EC%9D%B4%EB%B2%84-%EA%B2%80%EC%83%89%EC%97%94%EC%A7%84%EC%B5%9C%EC%A0%81%ED%99%94-%EC%83%81%EC%9C%84%EB%85%B8%EC%B6%9C-%EB%B0%A9%EC%95%88-181",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/%EA%B5%AC%EA%B8%80-ai-overviews%EC%97%90-%EB%85%B8%EC%B6%9C%EB%90%98%EB%8A%94-%EB%B0%A9%EB%B2%95%EA%B3%BC-aeo-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B0%80%EC%9D%B4%EB%93%9C-189",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "구글 AI Overviews에 노출되는 방법과 AEO 최적화 가이드",
+      "href": "/blog/%EA%B5%AC%EA%B8%80-ai-overviews%EC%97%90-%EB%85%B8%EC%B6%9C%EB%90%98%EB%8A%94-%EB%B0%A9%EB%B2%95%EA%B3%BC-aeo-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B0%80%EC%9D%B4%EB%93%9C-189",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/ai-%EC%9D%B8%EC%9A%A9%EB%A5%A0-%EB%86%92%EC%9D%B4%EB%8A%94-%EC%BD%98%ED%85%90%EC%B8%A0-%EC%9E%91%EC%84%B1%EB%B2%95-chatgptperplexity-%EB%85%B8%EC%B6%9C-%EC%A0%84%EB%9E%B5-188",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "AI 인용률 높이는 콘텐츠 작성법 ChatGPT·Perplexity 노출 전략",
+      "href": "/blog/ai-%EC%9D%B8%EC%9A%A9%EB%A5%A0-%EB%86%92%EC%9D%B4%EB%8A%94-%EC%BD%98%ED%85%90%EC%B8%A0-%EC%9E%91%EC%84%B1%EB%B2%95-chatgptperplexity-%EB%85%B8%EC%B6%9C-%EC%A0%84%EB%9E%B5-188",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/geo%EC%99%80-aeo-%ED%86%B5%ED%95%A9-%EC%A0%84%EB%9E%B5%EC%9C%BC%EB%A1%9C-ai-%EA%B2%80%EC%83%89-%EC%9D%B8%EC%9A%A9%EB%A5%A0-%EB%86%92%EC%9D%B4%EB%8A%94-7%EA%B0%80%EC%A7%80-%EB%B0%A9%EB%B2%95-187",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "GEO와 AEO 통합 전략으로 AI 검색 인용률 높이는 7가지 방법",
+      "href": "/blog/geo%EC%99%80-aeo-%ED%86%B5%ED%95%A9-%EC%A0%84%EB%9E%B5%EC%9C%BC%EB%A1%9C-ai-%EA%B2%80%EC%83%89-%EC%9D%B8%EC%9A%A9%EB%A5%A0-%EB%86%92%EC%9D%B4%EB%8A%94-7%EA%B0%80%EC%A7%80-%EB%B0%A9%EB%B2%95-187",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/aeogeo-%EC%BD%98%ED%85%90%EC%B8%A0-%EC%A0%84%EB%9E%B5-184",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "AEO·GEO 콘텐츠 전략",
+      "href": "/blog/aeogeo-%EC%BD%98%ED%85%90%EC%B8%A0-%EC%A0%84%EB%9E%B5-184",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/%EC%83%9D%EC%84%B1%ED%98%95-%EC%BD%98%ED%85%90%EC%B8%A0%EC%97%90-%EA%B5%AC%EC%A1%B0%ED%99%94-%EB%8D%B0%EC%9D%B4%ED%84%B0schema%EB%A5%BC-%EC%A0%81%EC%9A%A9%ED%95%B4%EC%95%BC-%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0-179",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "생성형 콘텐츠에 구조화 데이터(Schema)를 적용해야 하는 이유",
+      "href": "/blog/%EC%83%9D%EC%84%B1%ED%98%95-%EC%BD%98%ED%85%90%EC%B8%A0%EC%97%90-%EA%B5%AC%EC%A1%B0%ED%99%94-%EB%8D%B0%EC%9D%B4%ED%84%B0schema%EB%A5%BC-%EC%A0%81%EC%9A%A9%ED%95%B4%EC%95%BC-%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0-179",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/aeo-%EC%B5%9C%EC%A0%81%ED%99%94%EB%A5%BC-%EC%9C%84%ED%95%9C-%EC%A0%9C%EB%AA%A9%EC%86%8C%EC%A0%9C%EB%AA%A9-%EC%84%A4%EA%B3%84-%EA%B3%B5%EC%8B%9D-178",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "AEO 최적화를 위한 제목·소제목 설계 공식",
+      "href": "/blog/aeo-%EC%B5%9C%EC%A0%81%ED%99%94%EB%A5%BC-%EC%9C%84%ED%95%9C-%EC%A0%9C%EB%AA%A9%EC%86%8C%EC%A0%9C%EB%AA%A9-%EC%84%A4%EA%B3%84-%EA%B3%B5%EC%8B%9D-178",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/%EC%B1%97gpt-chatgpt%EA%B0%80-%EC%9D%B8%EC%9A%A9%ED%95%98%EB%8A%94-%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80%EC%9D%98-%EA%B3%B5%ED%86%B5%EC%A0%90-7%EA%B0%80%EC%A7%80-177",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "챗GPT (ChatGPT)가 인용하는 웹페이지의 공통점 7가지",
+      "href": "/blog/%EC%B1%97gpt-chatgpt%EA%B0%80-%EC%9D%B8%EC%9A%A9%ED%95%98%EB%8A%94-%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80%EC%9D%98-%EA%B3%B5%ED%86%B5%EC%A0%90-7%EA%B0%80%EC%A7%80-177",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "",
+      "href": "/blog/ai-%EA%B2%80%EC%83%89-%EC%8B%9C%EB%8C%80%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-seo-geogenerative-engine-optimization%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80-176",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "AI 검색 시대의 새로운 SEO: GEO(Generative Engine Optimization)란 무엇인가?",
+      "href": "/blog/ai-%EA%B2%80%EC%83%89-%EC%8B%9C%EB%8C%80%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-seo-geogenerative-engine-optimization%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80-176",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "www.optiflow.kr",
+      "href": "/",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "전체",
+      "href": "/blog",
+      "count": 2
+    },
+    {
+      "scope": "LOCAL",
+      "zone": "content",
+      "name": "검색엔진최적화",
+      "href": "/blog",
+      "count": 2
+    }
+  ]
+}

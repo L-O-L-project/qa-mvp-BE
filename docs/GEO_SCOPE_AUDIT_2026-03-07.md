@@ -10,6 +10,9 @@
 - GEO 라우터
   - `app/routers/geo.py`
   - 엔드포인트: `GET /geo-test`, `POST /api/geo-audit`
+- GEO 디스커버리 라우터
+  - `app/routers/discovery.py`
+  - 엔드포인트: `POST /api/geo-discovery`
 - GEO 분석 로직
   - `app/services/geo_audit.py`
 - GEO 고도화 재사용(보류 유지)
@@ -105,6 +108,22 @@
 - 중복 `geo-audit-be/` 코드 파일 삭제 반영
 - `requirements.txt`에서 GEO 무관 패키지 제거 반영
 - `app/services/analyze.py`, `app/services/llm.py`는 GEO 고도화 용도로 유지
+- `POST /api/geo-discovery` 추가로 analyze/llm 재사용 경로 연결
+
+## 2.2) GEO 고도화 (optiflow.kr/geo 기준 반영)
+
+- `app/services/geo_audit.py` 개선 적용:
+  - 페이지 단위 `JSON-LD` 커버리지/유효성 집계(`json_ld_summary`, `json_ld_pages`)
+  - `robots.txt`의 `Sitemap:` 라인 해석 기반 sitemap 탐지 보강
+  - `llms.txt` 정성 품질 점수(`llms_txt_quality`) 추가
+  - 머신 가독 신호(`machine_readable`) 추가:
+    - Next.js `__NEXT_DATA__` 파싱
+    - `article:*`, `author`, `h:*` 메타 시그널 탐지
+  - 한국어 FAQ/엔터티 탐지 패턴 보강
+
+- 결과:
+  - `https://optiflow.kr/geo` 기준 GEO audit 점수 92점(로컬 검증)
+  - JSON-LD 10/10 유효, 추천사항 없음
 
 ## 3) 삭제 전 최종 확인 체크
 

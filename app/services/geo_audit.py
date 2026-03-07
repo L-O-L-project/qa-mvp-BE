@@ -176,14 +176,40 @@ def _analyze_meta_tags(soup: BeautifulSoup) -> Dict[str, bool]:
 
 
 def _analyze_heading_structure(soup: BeautifulSoup) -> Dict[str, Any]:
+    def _primary_heading() -> str:
+        for tag in soup.select("article h1, article h2, article h3"):
+            value = (tag.get_text() or "").strip()
+            if len(value) >= 8:
+                return value
+
+        for tag in soup.find_all(["h1", "h2", "h3"], limit=12):
+            value = (tag.get_text() or "").strip()
+            if len(value) >= 8:
+                return value
+
+        og_title = soup.find("meta", attrs={"property": "og:title"})
+        if og_title and og_title.get("content"):
+            value = str(og_title.get("content")).strip()
+            if len(value) >= 8:
+                return value
+        return ""
+
     h1_tags = soup.find_all("h1")
     h2_count = len(soup.find_all("h2"))
     h3_count = len(soup.find_all("h3"))
-    hierarchy_valid = h2_count > 0 or h3_count == 0
+    primary_heading = _primary_heading()
+    hierarchy_valid = h2_count > 0 or h3_count == 0 or bool(primary_heading)
+    if len(h1_tags) > 0:
+        h1_present = True
+        h1_unique = len(h1_tags) == 1
+    else:
+        h1_present = bool(primary_heading)
+        h1_unique = bool(primary_heading)
     return {
-        "h1_present": len(h1_tags) > 0,
-        "h1_unique": len(h1_tags) == 1,
+        "h1_present": h1_present,
+        "h1_unique": h1_unique,
         "h2_h3_hierarchy": hierarchy_valid,
+        "primary_heading": primary_heading,
     }
 
 
@@ -306,13 +332,17 @@ def _safe_text(soup: BeautifulSoup) -> str:
 
 
 def _detect_faq(soup: BeautifulSoup) -> bool:
-    faq_blocks = soup.select("[class*='faq' i], [id*='faq' i], details")
+    faq_blocks = soup.select("[class*='faq' i], [id*='faq' i], [class*='qna' i], [id*='qna' i], details")
     if faq_blocks:
         return True
 
     text = _safe_text(soup).lower()
-    patterns = [r"\bwhat\b", r"\bhow\b", r"\bwhy\b", r"\bcan\b", r"\bshould\b"]
-    return sum(1 for pattern in patterns if re.search(pattern, text)) >= 3
+    patterns_en = [r"\bwhat\b", r"\bhow\b", r"\bwhy\b", r"\bcan\b", r"\bshould\b", r"\bfaq\b"]
+    patterns_ko = [r"자주\s*묻는\s*질문", r"\b질문\b", r"\b답변\b", r"어떻게", r"왜", r"무엇", r"가능"]
+    en_hits = sum(1 for pattern in patterns_en if re.search(pattern, text))
+    ko_hits = sum(1 for pattern in patterns_ko if re.search(pattern, text))
+    question_marks = text.count("?") + text.count("？")
+    return en_hits >= 3 or ko_hits >= 2 or question_marks >= 3
 
 
 def _extract_entities(soup: BeautifulSoup, page_url: str) -> Dict[str, Any]:
@@ -327,17 +357,25 @@ def _extract_entities(soup: BeautifulSoup, page_url: str) -> Dict[str, Any]:
         company_name = soup.title.text.strip().split("|")[0].strip()
 
     service_name = None
-    for tag in soup.find_all(["h1", "h2"], limit=5):
+    for tag in soup.find_all(["h1", "h2", "h3"], limit=8):
         value = (tag.get_text() or "").strip()
         if len(value) >= 4:
             service_name = value
             break
+    if not service_name:
+        og_title = soup.find("meta", attrs={"property": "og:title"})
+        if og_title and og_title.get("content"):
+            service_name = str(og_title.get("content")).strip()
 
     emails = sorted(set(re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", text)))
     phones = sorted(set(re.findall(r"(?:\+?\d{1,3}[\s.-]?)?(?:\(?\d{2,4}\)?[\s.-]?)\d{3,4}[\s.-]?\d{4}", text)))
 
     location = None
-    patterns = [r"\b[a-zA-Z\s]+,\s?[A-Z]{2}\b", r"\b[a-zA-Z\s]+,\s?(?:UK|USA|Korea|Japan|Germany|France)\b"]
+    patterns = [
+        r"\b[a-zA-Z\s]+,\s?[A-Z]{2}\b",
+        r"\b[a-zA-Z\s]+,\s?(?:UK|USA|Korea|Japan|Germany|France)\b",
+        r"\b[가-힣]{2,}(?:시|군|구)\b",
+    ]
     for pattern in patterns:
         match = re.search(pattern, text)
         if match:
@@ -361,30 +399,49 @@ def _score_geo(results: Dict[str, Any]) -> int:
     structured_data = results["structured_data"]
     faq_detected = results["faq_detected"]
     entities = results["entities"]
+    llms_quality = results.get("llms_txt_quality") if isinstance(results.get("llms_txt_quality"), dict) else {}
+    machine = results.get("machine_readable") if isinstance(results.get("machine_readable"), dict) else {}
 
     score = 0.0
-    score += 20 * (sum(1 for ok in file_presence.values() if ok) / max(len(file_presence), 1))
+    score += 15 * (sum(1 for ok in file_presence.values() if ok) / max(len(file_presence), 1))
 
     meta_keys = ["title", "meta_description", "og_title", "og_description", "og_image", "canonical"]
-    score += 20 * (sum(1 for key in meta_keys if meta.get(key)) / len(meta_keys))
+    score += 18 * (sum(1 for key in meta_keys if meta.get(key)) / len(meta_keys))
 
     heading_checks = [headings.get("h1_present"), headings.get("h1_unique"), headings.get("h2_h3_hierarchy")]
-    score += 15 * (sum(1 for item in heading_checks if item) / len(heading_checks))
+    score += 12 * (sum(1 for item in heading_checks if item) / len(heading_checks))
 
     schema_points = min(len(structured_data), 3) / 3
-    score += 20 * schema_points
+    score += 18 * schema_points
 
     score += 10 if faq_detected else 0
-    score += 15 if entities.get("entity_clarity") else 0
+
+    score += 12 if entities.get("entity_clarity") else 0
+
+    llms_ratio = float(llms_quality.get("score", 0)) / max(int(llms_quality.get("maxScore", 12)), 1)
+    score += 8 * llms_ratio
+
+    machine_checks = [
+        int(machine.get("next_data_pages", 0)) > 0,
+        int(machine.get("article_meta_pages", 0)) > 0,
+        int(machine.get("h_meta_pages", 0)) > 0,
+    ]
+    score += 7 * (sum(1 for item in machine_checks if item) / len(machine_checks))
+
     return max(0, min(100, round(score)))
 
 
 def _build_recommendations(results: Dict[str, Any]) -> list[str]:
     recs: list[str] = []
     json_ld_summary = results.get("json_ld_summary") if isinstance(results.get("json_ld_summary"), dict) else {}
+    llms_quality = results.get("llms_txt_quality") if isinstance(results.get("llms_txt_quality"), dict) else {}
+    machine = results.get("machine_readable") if isinstance(results.get("machine_readable"), dict) else {}
+    llms_score = int(llms_quality.get("score", 0) or 0)
 
     if not results["file_presence"].get("llms_txt"):
         recs.append("Add llms.txt to guide AI crawlers")
+    elif llms_score < 7:
+        recs.append("Improve llms.txt quality (structure, links, contact, key services)")
     if not results["faq_detected"]:
         recs.append("Add FAQ section with 3+ user questions")
     if not results["structured_data"]:
@@ -399,27 +456,187 @@ def _build_recommendations(results: Dict[str, Any]) -> list[str]:
         recs.append("Fix invalid JSON-LD blocks on affected pages")
     elif int(json_ld_summary.get("missing_pages", 0)) > 0:
         recs.append("Add JSON-LD to more crawled pages for better page-level schema coverage")
+    machine_present = (
+        int(machine.get("next_data_pages", 0)) > 0
+        or int(machine.get("article_meta_pages", 0)) > 0
+        or int(machine.get("h_meta_pages", 0)) > 0
+    )
+    if not machine_present:
+        recs.append("Add machine-readable page payload signals for AI parsers")
 
     return recs
 
 
 async def _check_file_presence(origin: str, client: httpx.AsyncClient) -> Dict[str, bool]:
-    checks = {
-        "llms_txt": "/llms.txt",
-        "ai_txt": "/ai.txt",
-        "robots_txt": "/robots.txt",
-        "sitemap": "/sitemap.xml",
-    }
     out: Dict[str, bool] = {}
-    for key, path in checks.items():
-        exists = False
+    details: Dict[str, Any] = {"sitemapCandidates": [], "resolvedSitemapUrl": "", "llmsTxtContent": ""}
+
+    # robots.txt
+    robots_text = ""
+    try:
+        robots_resp = await client.get(urljoin(origin + "/", "/robots.txt"))
+        out["robots_txt"] = robots_resp.status_code < 400
+        if out["robots_txt"]:
+            robots_text = robots_resp.text or ""
+    except Exception:
+        out["robots_txt"] = False
+
+    # llms.txt
+    try:
+        llms_resp = await client.get(urljoin(origin + "/", "/llms.txt"))
+        out["llms_txt"] = llms_resp.status_code < 400
+        if out["llms_txt"]:
+            details["llmsTxtContent"] = llms_resp.text or ""
+    except Exception:
+        out["llms_txt"] = False
+
+    # ai.txt
+    try:
+        ai_resp = await client.get(urljoin(origin + "/", "/ai.txt"))
+        out["ai_txt"] = ai_resp.status_code < 400
+    except Exception:
+        out["ai_txt"] = False
+
+    # sitemap.xml + robots.txt Sitemap: fallback
+    sitemap_candidates: list[str] = [urljoin(origin + "/", "/sitemap.xml")]
+    for line in (robots_text or "").splitlines():
+        if not line.lower().startswith("sitemap:"):
+            continue
+        raw = line.split(":", 1)[1].strip()
+        if not raw:
+            continue
+        candidate = raw if raw.startswith(("http://", "https://")) else urljoin(origin + "/", raw)
+        if candidate not in sitemap_candidates:
+            sitemap_candidates.append(candidate)
+
+    details["sitemapCandidates"] = sitemap_candidates
+    out["sitemap"] = False
+    for sitemap_url in sitemap_candidates[:8]:
         try:
-            response = await client.get(urljoin(origin + "/", path))
-            exists = response.status_code < 400
+            sm_resp = await client.get(sitemap_url)
+            if sm_resp.status_code < 400:
+                out["sitemap"] = True
+                details["resolvedSitemapUrl"] = sitemap_url
+                break
         except Exception:
-            exists = False
-        out[key] = exists
-    return out
+            continue
+
+    return out, details
+
+
+def _analyze_llms_text(raw_text: str) -> Dict[str, Any]:
+    text = (raw_text or "").strip()
+    max_score = 12
+    score = 0
+    signals = {
+        "has_sections": False,
+        "has_urls": False,
+        "has_contact": False,
+        "has_service_keywords": False,
+        "has_list": False,
+        "sufficient_length": False,
+    }
+
+    if not text:
+        return {
+            "score": 0,
+            "maxScore": max_score,
+            "passed": False,
+            "signals": signals,
+            "notes": ["llms.txt is empty"],
+        }
+
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    joined = "\n".join(lines).lower()
+
+    if any(line.startswith("#") for line in lines):
+        signals["has_sections"] = True
+        score += 2
+    if re.search(r"https?://", joined):
+        signals["has_urls"] = True
+        score += 3
+    if re.search(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", joined):
+        signals["has_contact"] = True
+        score += 2
+    if any(k in joined for k in ["service", "product", "api", "docs", "pricing", "support", "서비스", "제품", "문의", "문서"]):
+        signals["has_service_keywords"] = True
+        score += 2
+    if any(line.startswith(("-", "*", "1.", "2.", "3.")) for line in lines):
+        signals["has_list"] = True
+        score += 1
+    if len(text) >= 300:
+        signals["sufficient_length"] = True
+        score += 2
+
+    notes = []
+    if not signals["has_sections"]:
+        notes.append("Add section headings")
+    if not signals["has_urls"]:
+        notes.append("Add canonical URLs to key pages")
+    if not signals["has_contact"]:
+        notes.append("Add contact information")
+    if not signals["has_service_keywords"]:
+        notes.append("Describe key services/products")
+
+    return {
+        "score": min(max_score, score),
+        "maxScore": max_score,
+        "passed": score >= 7,
+        "signals": signals,
+        "notes": notes[:4],
+    }
+
+
+def _analyze_machine_readable_signals(soup: BeautifulSoup) -> Dict[str, Any]:
+    next_data_present = False
+    next_data_parse_ok = False
+    next_data_has_article = False
+
+    next_data_node = soup.find("script", attrs={"id": "__NEXT_DATA__"})
+    if next_data_node:
+        next_data_present = True
+        raw = (next_data_node.string or next_data_node.get_text() or "").strip()
+        if raw:
+            try:
+                payload = json.loads(raw)
+                next_data_parse_ok = True
+
+                stack = [payload]
+                while stack:
+                    node = stack.pop()
+                    if isinstance(node, dict):
+                        keys = set(node.keys())
+                        if "article" in keys or {"headline", "datePublished"} <= keys:
+                            next_data_has_article = True
+                            break
+                        stack.extend(node.values())
+                    elif isinstance(node, list):
+                        stack.extend(node)
+            except Exception:
+                next_data_parse_ok = False
+
+    article_meta_props = [
+        "article:published_time",
+        "article:modified_time",
+        "article:section",
+        "og:type",
+        "author",
+    ]
+    article_meta_hits = 0
+    for prop in article_meta_props:
+        meta = soup.find("meta", attrs={"property": prop}) or soup.find("meta", attrs={"name": prop})
+        if meta and meta.get("content"):
+            article_meta_hits += 1
+
+    h_meta_hits = len(soup.select("meta[name^='h:'], meta[property^='h:']"))
+
+    return {
+        "next_data_present": next_data_present,
+        "next_data_parse_ok": next_data_parse_ok,
+        "next_data_has_article": next_data_has_article,
+        "article_meta_hits": article_meta_hits,
+        "h_meta_hits": h_meta_hits,
+    }
 
 
 def _aggregate_page_results(pages: list[CrawledPage]) -> Dict[str, Any]:
@@ -437,6 +654,13 @@ def _aggregate_page_results(pages: list[CrawledPage]) -> Dict[str, Any]:
     faq_detected = False
     entity_candidate: Dict[str, Any] | None = None
     json_ld_pages: list[Dict[str, Any]] = []
+    machine_summary = {
+        "total_pages": len(pages),
+        "next_data_pages": 0,
+        "next_data_article_pages": 0,
+        "article_meta_pages": 0,
+        "h_meta_pages": 0,
+    }
 
     for page in pages:
         soup = BeautifulSoup(page.html, "html.parser")
@@ -471,6 +695,16 @@ def _aggregate_page_results(pages: list[CrawledPage]) -> Dict[str, Any]:
         elif entity_candidate is None:
             entity_candidate = entities
 
+        machine = _analyze_machine_readable_signals(soup)
+        if machine.get("next_data_present"):
+            machine_summary["next_data_pages"] += 1
+        if machine.get("next_data_has_article"):
+            machine_summary["next_data_article_pages"] += 1
+        if int(machine.get("article_meta_hits", 0)) > 0:
+            machine_summary["article_meta_pages"] += 1
+        if int(machine.get("h_meta_hits", 0)) > 0:
+            machine_summary["h_meta_pages"] += 1
+
     if entity_candidate is None:
         entity_candidate = {
             "company_name": None,
@@ -491,6 +725,7 @@ def _aggregate_page_results(pages: list[CrawledPage]) -> Dict[str, Any]:
         "structured_data": sorted(structured_data),
         "faq_detected": faq_detected,
         "entities": entity_candidate,
+        "machine_readable": machine_summary,
         "json_ld_pages": json_ld_pages,
         "json_ld_summary": {
             "total_pages": len(json_ld_pages),
@@ -537,21 +772,38 @@ def _audit_section(section_id: str, label: str, items: list[Dict[str, Any]], sum
 def _build_verified_sections(crawl_result: Dict[str, Any], results: Dict[str, Any]) -> list[Dict[str, Any]]:
     origin = str(crawl_result.get("origin") or "").rstrip("/")
     file_presence = results["file_presence"]
+    file_details = results.get("file_details") if isinstance(results.get("file_details"), dict) else {}
     meta = results["meta"]
     headings = results["headings"]
     structured_data = results["structured_data"]
     json_ld_pages = results.get("json_ld_pages") if isinstance(results.get("json_ld_pages"), list) else []
     json_ld_summary = results.get("json_ld_summary") if isinstance(results.get("json_ld_summary"), dict) else {}
+    machine = results.get("machine_readable") if isinstance(results.get("machine_readable"), dict) else {}
+    llms_quality = results.get("llms_txt_quality") if isinstance(results.get("llms_txt_quality"), dict) else {}
     entities = results["entities"] if isinstance(results.get("entities"), dict) else {}
     contact = entities.get("contact_information") if isinstance(entities.get("contact_information"), dict) else {}
     emails = contact.get("emails") if isinstance(contact.get("emails"), list) else []
     phones = contact.get("phones") if isinstance(contact.get("phones"), list) else []
 
+    llms_notes = llms_quality.get("notes") if isinstance(llms_quality.get("notes"), list) else []
+    llms_evidence = ", ".join(str(note) for note in llms_notes if str(note).strip()) or "quality checks passed"
+    sitemap_value = (
+        str(file_details.get("resolvedSitemapUrl")).strip()
+        if str(file_details.get("resolvedSitemapUrl") or "").strip()
+        else f"{origin}/sitemap.xml"
+    )
     file_items = [
         _audit_item("llms_txt", "llms.txt", bool(file_presence.get("llms_txt")), value=f"{origin}/llms.txt"),
+        _audit_item(
+            "llms_txt_quality",
+            "llms.txt quality",
+            bool(llms_quality.get("passed")),
+            value=f"{int(llms_quality.get('score', 0))}/{int(llms_quality.get('maxScore', 12))}",
+            evidence=llms_evidence,
+        ),
         _audit_item("ai_txt", "ai.txt", bool(file_presence.get("ai_txt")), value=f"{origin}/ai.txt"),
         _audit_item("robots_txt", "robots.txt", bool(file_presence.get("robots_txt")), value=f"{origin}/robots.txt"),
-        _audit_item("sitemap", "sitemap.xml", bool(file_presence.get("sitemap")), value=f"{origin}/sitemap.xml"),
+        _audit_item("sitemap", "sitemap.xml", bool(file_presence.get("sitemap")), value=sitemap_value),
     ]
 
     meta_items = [
@@ -659,6 +911,33 @@ def _build_verified_sections(crawl_result: Dict[str, Any], results: Dict[str, An
         ),
     ]
 
+    machine_items = [
+        _audit_item(
+            "next_data_pages",
+            "__NEXT_DATA__ pages",
+            int(machine.get("next_data_pages", 0)) > 0,
+            value=f"{int(machine.get('next_data_pages', 0))}/{int(machine.get('total_pages', 0))}",
+        ),
+        _audit_item(
+            "next_data_article_pages",
+            "__NEXT_DATA__ article payload",
+            int(machine.get("next_data_article_pages", 0)) > 0,
+            value=f"{int(machine.get('next_data_article_pages', 0))}/{int(machine.get('total_pages', 0))}",
+        ),
+        _audit_item(
+            "article_meta_pages",
+            "Article meta pages",
+            int(machine.get("article_meta_pages", 0)) > 0,
+            value=f"{int(machine.get('article_meta_pages', 0))}/{int(machine.get('total_pages', 0))}",
+        ),
+        _audit_item(
+            "h_meta_pages",
+            "h:* meta pages",
+            int(machine.get("h_meta_pages", 0)) > 0,
+            value=f"{int(machine.get('h_meta_pages', 0))}/{int(machine.get('total_pages', 0))}",
+        ),
+    ]
+
     crawled_pages = []
     for page in crawl_result.get("pages") or []:
         if not isinstance(page, CrawledPage):
@@ -687,6 +966,7 @@ def _build_verified_sections(crawl_result: Dict[str, Any], results: Dict[str, An
                 "page(s) have valid JSON-LD"
             ),
         ),
+        _audit_section("machine", "Machine-readable Signals", machine_items),
         _audit_section("entities", "Entity Signals", entity_items),
         _audit_section(
             "pages",
@@ -701,10 +981,22 @@ async def run_geo_audit(url: str) -> Dict[str, Any]:
     crawl_result = await _crawl_site(url)
 
     async with httpx.AsyncClient(timeout=15.0, follow_redirects=True) as client:
-        file_presence = await _check_file_presence(crawl_result["origin"], client)
+        file_presence_raw = await _check_file_presence(crawl_result["origin"], client)
+        if isinstance(file_presence_raw, tuple) and len(file_presence_raw) == 2:
+            file_presence, file_details = file_presence_raw
+        else:
+            file_presence = file_presence_raw if isinstance(file_presence_raw, dict) else {}
+            file_details = {}
+
+    llms_quality = _analyze_llms_text(str(file_details.get("llmsTxtContent") or ""))
 
     aggregated = _aggregate_page_results(crawl_result["pages"])
-    results = {"file_presence": file_presence, **aggregated}
+    results = {
+        "file_presence": file_presence,
+        "file_details": file_details,
+        "llms_txt_quality": llms_quality,
+        **aggregated,
+    }
 
     checks = {
         **results["file_presence"],
@@ -713,6 +1005,10 @@ async def run_geo_audit(url: str) -> Dict[str, Any]:
         "og_tags": results["meta"]["og_tags"],
         "faq_detected": results["faq_detected"],
         "structured_data": results["structured_data"],
+        "machine_readable_payload": (
+            int(results.get("machine_readable", {}).get("next_data_pages", 0)) > 0
+            or int(results.get("machine_readable", {}).get("article_meta_pages", 0)) > 0
+        ),
     }
     pages = []
     for page in crawl_result.get("pages") or []:
@@ -738,10 +1034,13 @@ async def run_geo_audit(url: str) -> Dict[str, Any]:
             "origin": crawl_result["origin"],
             "target": crawl_result["target"],
             "file_presence": results["file_presence"],
+            "file_details": results["file_details"],
             "meta": results["meta"],
             "headings": results["headings"],
             "faq_detected": results["faq_detected"],
             "entities": results["entities"],
+            "machine_readable": results["machine_readable"],
+            "llms_txt_quality": results["llms_txt_quality"],
             "structured_data": results["structured_data"],
             "json_ld_summary": results["json_ld_summary"],
             "json_ld_pages": results["json_ld_pages"],

@@ -106,3 +106,54 @@ class GeoAuditDetailTests(unittest.IsolatedAsyncioTestCase):
         entity_section = sections["entities"]
         emails_item = next(item for item in entity_section["items"] if item["key"] == "emails")
         self.assertIn("hello@example.com", emails_item["value"])
+
+    async def test_run_geo_audit_detects_next_data_and_korean_faq(self):
+        html = """
+        <html>
+          <head>
+            <title>옵티플로우 GEO 가이드</title>
+            <meta property="og:title" content="옵티플로우 GEO 가이드" />
+            <script id="__NEXT_DATA__" type="application/json">
+              {"props":{"pageProps":{"article":{"title":"옵티플로우 GEO 가이드","id":1}}}}
+            </script>
+          </head>
+          <body>
+            <h3>옵티플로우 GEO 가이드</h3>
+            <section class="qna">
+              <p>자주 묻는 질문</p>
+              <p>어떻게 시작하나요?</p>
+              <p>왜 필요한가요?</p>
+            </section>
+          </body>
+        </html>
+        """
+        crawl_result = {
+            "origin": "https://example.com",
+            "target": "https://example.com",
+            "pages": [
+                CrawledPage(
+                    url="https://example.com",
+                    path="/",
+                    depth=0,
+                    html=html,
+                    status_code=200,
+                ),
+            ],
+        }
+        file_presence = {
+            "llms_txt": False,
+            "ai_txt": False,
+            "robots_txt": True,
+            "sitemap": False,
+        }
+
+        with patch("app.services.geo_audit._crawl_site", AsyncMock(return_value=crawl_result)), patch(
+            "app.services.geo_audit._check_file_presence",
+            AsyncMock(return_value=file_presence),
+        ):
+            result = await run_geo_audit("https://example.com")
+
+        self.assertTrue(result["checks"]["faq_detected"])
+        self.assertTrue(result["checks"]["machine_readable_payload"])
+        self.assertTrue(result["evidence"]["headings"]["h1_present"])
+        self.assertEqual(result["evidence"]["machine_readable"]["next_data_pages"], 1)
