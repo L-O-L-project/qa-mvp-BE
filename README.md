@@ -2,7 +2,7 @@
 title: GEO Audit Demo
 emoji: 🌐
 colorFrom: blue
-colorTo: cyan
+colorTo: indigo
 sdk: docker
 app_port: 7860
 base_path: /geo-test
